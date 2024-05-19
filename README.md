@@ -1,2 +1,6 @@
-# skin-color-correction
-human skin color correction software (white balance) in images that present considerable variability in color tones.
+# Skin Color Correction
+
+> [!WARNING]
+> This software is under development
+
+Human skin color correction (white balance) in images that present considerable variability in color tones.
