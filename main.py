@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 forehead = [10,338,297,332,298,293,334,296,336,9,107,66,105,63,68,103,67,109,10]
 left_cheek= [116,117,118,119,100,142,203,206,216,192,213,147,123,116]
 right_cheek = [345,346,347,348,329,371,423,426,436,416,433,376,352,345]
-face = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109, 10]
+face = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109,10]
 
 DESIRED_HEIGHT = 600
 DESIRED_WIDTH = 600
@@ -138,8 +138,8 @@ def color_grading_idt(img1, img2, bins=300, n_rot=10, relaxation=1):
 if __name__ == '__main__':
 
     # google monk skin tone examples
-    path_input = "img/in/input1_4K.jpg"
-    path_target = "img/in/golden_pics_mst/skin_tone_4/img1.jpg"
+    path_input = "img/in/mst_input/img3.jpg"
+    path_target = "img/in/golden_pics_mst/skin_tone_1/img2.jpg"
 
     img_input = cv.imread(path_input)
     img_target = cv.imread(path_target)
@@ -185,3 +185,5 @@ if __name__ == '__main__':
     resize_and_show(img_final)
     
     cv.imwrite("img/out/output1.jpg", img_final)
+
+    #alpha matting + bilinear filter
