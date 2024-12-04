@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-import mediapipe as mp # python 3.8 ~ 3.11
+import mediapipe as mp # python [3.8 ~ 3.11]
 import scipy as sp
 import pandas as pd
 import math
@@ -28,7 +28,7 @@ def resize_and_show(image):
     cv.waitKey(0) 
     cv.destroyAllWindows()
 
-# selection of the regions od interest (roi) of an image
+# selection of the regions of interest (roi)
 def region_of_interest_segmentation(roi, info, img):
     imArray = np.asarray(img)
 
@@ -133,25 +133,38 @@ def color_grading_idt(img1, img2, bins=300, n_rot=10, relaxation=1):
 
     return d1.T
 
+def apply_bilateral(img):
+    face_area = np.count_nonzero(img)  
+    total_area = img.shape[0] * img.shape[1]
+    face_ratio = face_area / total_area
 
-# main program
-if __name__ == '__main__':
+    # dynamic parameters
+    d = max(5, int(15 * face_ratio))  # windows size
+    sigma_color = 50 + int(50 * face_ratio)  
+    sigma_space = 50 + int(50 * face_ratio)  
 
+    # bilateral filter
+    filtered_img = cv.bilateralFilter(img, d, sigma_color, sigma_space)
+
+    return filtered_img
+
+def main():
     # google monk skin tone examples
-    path_input = "img/in/mst_input/img3.jpg"
-    path_target = "img/in/golden_pics_mst/skin_tone_1/img2.jpg"
+    path_input = "img/in/mst_input/skin_tone_2/img2.jpg"
+    path_target = "img/in/golden_pics_mst/skin_tone_2/img3.jpg"
 
     img_input = cv.imread(path_input)
     img_target = cv.imread(path_target)
 
     # resizing the images for optimization
-    width = int(img_input.shape[1] * 20 / 100)
-    height = int(img_input.shape[0] * 20 / 100)
+    width = int(img_input.shape[1] * 30 / 100)
+    height = int(img_input.shape[0] * 30 / 100)
     dim = (width, height)
 
     img_target = cv.resize(img_target, dim)
     img_input = cv.resize(img_input, dim)
 
+    #segmentation of the regions of interest (roi)
     roi_input = cv.cvtColor(segmentation(img_input,2), cv.COLOR_BGR2RGB)
     roi_target = cv.cvtColor(segmentation(img_target,2), cv.COLOR_BGR2RGB)
 
@@ -181,9 +194,18 @@ if __name__ == '__main__':
     resize_and_show(cv.cvtColor(roi_input, cv.COLOR_RGB2BGR))
     resize_and_show(img_output)
 
+    img_bilateral = apply_bilateral(img_output)
+    resize_and_show(img_bilateral)
+
     img_final = cv.add(img_input, img_output)
+    img_final2 = cv.add(img_input, img_bilateral)
     resize_and_show(img_final)
-    
+    resize_and_show(img_final2)
+
+    cv.imwrite("img/out/output2.jpg", img_final2)
     cv.imwrite("img/out/output1.jpg", img_final)
 
-    #alpha matting + bilinear filter
+
+# main program
+if __name__ == '__main__':
+    main()
