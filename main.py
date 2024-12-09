@@ -133,6 +133,7 @@ def color_grading_idt(img1, img2, bins=300, n_rot=10, relaxation=1):
 
     return d1.T
 
+# function to apply bilateral filter
 def apply_bilateral(img):
     face_area = np.count_nonzero(img)  
     total_area = img.shape[0] * img.shape[1]
@@ -149,6 +150,7 @@ def apply_bilateral(img):
     return filtered_img
 
 def main():
+
     # google monk skin tone examples
     path_input = "img/in/mst_input/skin_tone_2/img2.jpg"
     path_target = "img/in/golden_pics_mst/skin_tone_2/img3.jpg"
@@ -204,7 +206,6 @@ def main():
 
     cv.imwrite("img/out/output2.jpg", img_final2)
     cv.imwrite("img/out/output1.jpg", img_final)
-
 
 # main program
 if __name__ == '__main__':
