@@ -152,21 +152,21 @@ def apply_bilateral(img):
 def main():
 
     # google monk skin tone examples
-    path_input = "img/in/mst_input/skin_tone_2/img2.jpg"
-    path_target = "img/in/golden_pics_mst/skin_tone_2/img3.jpg"
+    path_input = "img/in/mst_input/skin_tone_5/img5.jpg"
+    path_target = "img/in/golden_pics_mst/skin_tone_5/img1.jpg"
 
     img_input = cv.imread(path_input)
     img_target = cv.imread(path_target)
 
-    # resizing the images for optimization
-    width = int(img_input.shape[1] * 30 / 100)
-    height = int(img_input.shape[0] * 30 / 100)
+    # Resizing the images for optimization
+    width = int(img_input.shape[1] * 40 / 100)
+    height = int(img_input.shape[0] * 40 / 100)
     dim = (width, height)
 
-    img_target = cv.resize(img_target, dim)
     img_input = cv.resize(img_input, dim)
+    img_target = cv.resize(img_target, dim)
 
-    #segmentation of the regions of interest (roi)
+    # segmentation of the regions of interest (roi)
     roi_input = cv.cvtColor(segmentation(img_input,2), cv.COLOR_BGR2RGB)
     roi_target = cv.cvtColor(segmentation(img_target,2), cv.COLOR_BGR2RGB)
 
@@ -183,28 +183,16 @@ def main():
 
     # applying color grading
     a_result = color_grading_idt(a_input, a_target, bins=300, n_rot=20, relaxation=1)
-
-    # converting the result back to a DataFrame and reshaping to the original image shape
-    df_result = pd.DataFrame(a_result, columns=['r', 'g', 'b'])
-    img_output = a_result.reshape(roi_input.shape)
-
-    # converting the image to absolute scale and changing the color format from RGB to BGR
+    
+    # converting the result back to an image
+    img_output = a_result.reshape(img_input.shape)
     img_output = cv.convertScaleAbs(img_output)
-    img_output= cv.cvtColor(img_output, cv.COLOR_RGB2BGR)
+    img_output = cv.cvtColor(img_output, cv.COLOR_RGB2BGR)
 
-    # displaying images
-    resize_and_show(cv.cvtColor(roi_input, cv.COLOR_RGB2BGR))
-    resize_and_show(img_output)
-
+    # final processing
     img_bilateral = apply_bilateral(img_output)
-    resize_and_show(img_bilateral)
+    img_final = cv.add(img_input, img_bilateral)
 
-    img_final = cv.add(img_input, img_output)
-    img_final2 = cv.add(img_input, img_bilateral)
-    resize_and_show(img_final)
-    resize_and_show(img_final2)
-
-    cv.imwrite("img/out/output2.jpg", img_final2)
     cv.imwrite("img/out/output1.jpg", img_final)
 
 # main program
