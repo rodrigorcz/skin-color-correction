@@ -6,7 +6,7 @@ This repository contains the code develop of a method to correct human facial sk
 
 The method developed uses facial segmentation, color grading techniques, and bilateral filtering to correct skin tone colors in images while preserving background elements. The approach is inspired by previous works and implemented using Python with the OpenCV and MediaPipe libraries. 
 
-Figure 1 show an example of application of the proposed color correction method. On the left there is a target image that is used to correct the central input image, resulting in a corrected output image on the left:
+The Figure 1 show an example of application of the proposed color correction method. On the left there is a target image that is used to correct the central input image, resulting in a corrected output image on the left:
 
 <div style="display: flex; justify-content: center; align-items: center;">
   <img src="img/in/golden_pics_mst/skin_tone_5/img1.jpg" alt="Imagem 1" style="margin: 0 10px; width: 30%;">
@@ -14,7 +14,7 @@ Figure 1 show an example of application of the proposed color correction method.
   <img src="img/out/ex_output.jpg" alt="Imagem 3" style="margin: 0 10px; width: 30%;">
 </div>
 
-<p style="text-align: center;">Figure 1: Skin color correction.</p>
+<p align = "center">Figure 1: Skin color correction.</p>
 
 Initially, the detection and extraction of the regions of interest (ROI) of the human face are performed on the input image (initially with imprecise color) and a target image (considered ideally accurate), using the Mediapipe framework. This framework leverages machine learning models trained to identify regions in an image or video where faces are present. Subsequently, color grading methodologies are applied, transferring the color distributions from the target image to the input image, as shown in Figure 2. Finally, bilateral filtering is applied to the corrected image to remove noise, after which the corrected segmented image is overlaid onto the input image.
 
@@ -22,7 +22,7 @@ Initially, the detection and extraction of the regions of interest (ROI) of the 
   <img src="img/fig1.png" alt="Imagem 1">
 </div>
 
-<p style="text-align: center;">Figure 2: Color Grading between an input image (a) and a reference image (b), resulting in an image (c) with the correct color grading. The top row shows the face segmentations of the two images, while the bottom row represents the color distributions of the image in the RGB color space.</p>
+<p align = "center">Figure 2: Color Grading between an input image (a) and a reference image (b), resulting in an image (c) with the correct color grading. The top row shows the face segmentations of the two images, while the bottom row represents the color distributions of the image in the RGB color space.</p>
 
 ## Code Structure
 
