@@ -152,7 +152,7 @@ def apply_bilateral(img):
 def main():
 
     # google monk skin tone examples
-    path_input = "img/in/mst_input/skin_tone_5/img5.jpg"
+    path_input = "img/in/mst_input/skin_tone_5/img1.jpg"
     path_target = "img/in/golden_pics_mst/skin_tone_5/img1.jpg"
 
     img_input = cv.imread(path_input)
@@ -191,9 +191,11 @@ def main():
 
     # final processing
     img_bilateral = apply_bilateral(img_output)
-    img_final = cv.add(img_input, img_bilateral)
 
-    cv.imwrite("img/out/output1.jpg", img_final)
+    mask = np.any(img_bilateral != [0, 0, 0], axis=-1)
+    img_final = img_input.copy()
+    img_final[mask] = img_bilateral[mask]
+    cv.imwrite(f"img/out/ex_output.jpg", img_final)
 
 # main program
 if __name__ == '__main__':
