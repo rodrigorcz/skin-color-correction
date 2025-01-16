@@ -36,7 +36,7 @@ The code is organized in a notebook that includes:
 
 ## Contributions
 
-This project was developed as part of a FAPESP scholarship (process nº 2023/15404-1), under the supervision of Prof. João do Espírito Santo Batista Neto, at the Institute of Mathematical and Computational Sciences (USP).
+This project was developed as part of a FAPESP scholarship (process nº 2023/15404-1), under the supervision of Prof. João do Espírito Santo Batista Neto, at the Institute of Mathematical and Computational Sciences (USP). To view the partial and final reports, in Portuguese/Br, related to this process, check the files `reports/Partial_Report.pdf` and `reports/Final_Report.pdf`.
 
 ## References
 
